@@ -8,7 +8,11 @@ public class VehiculoBuilder {
 	public static Vehiculo convertirADominio(VehiculoEntity vehiculoEntity) {
 		Vehiculo vehiculo = null;
 		if(vehiculoEntity != null) {
-			vehiculo = new Vehiculo(vehiculoEntity.getPlaca(),vehiculoEntity.getTipo(), vehiculoEntity.getCilindraje());
+			vehiculo = new Vehiculo(
+					vehiculoEntity.getId(),
+					vehiculoEntity.getPlaca(),
+					vehiculoEntity.getTipo(), 
+					vehiculoEntity.getCilindraje());
 		}
 		return vehiculo;
 	}

@@ -12,6 +12,7 @@ public class IngresoBuilder extends VehiculoBuilder {
 		Ingreso ingreso = null;
 		if(ingresoEntity != null) {
 			ingreso = new Ingreso(
+					ingresoEntity.getId(),
 					ingresoEntity.getFecha(),
 					convertirADominio(ingresoEntity.getVehiculo()));
 		}

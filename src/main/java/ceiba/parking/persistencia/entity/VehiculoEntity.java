@@ -10,7 +10,7 @@ public class VehiculoEntity {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="id_vehiculo")
+	@Column(name="idvehiculo")
 	private Long id;
 	
 	@Column(unique=true)

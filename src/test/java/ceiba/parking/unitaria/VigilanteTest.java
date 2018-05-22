@@ -3,6 +3,10 @@ package ceiba.parking.unitaria;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -32,6 +36,8 @@ public class VigilanteTest {
 	public static final String VEHICULO_NO_AUROTIZADO = "placa inicia con A dia no autorizado";
 	public static final String CUPO_NO_DISPONIBLE = "Cupos no disponibles";
 	public static final String VEHICULO_NO_REGISTRADO = "Vehiculo no se ecuentra en el parqueadero";
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
 	
 	@InjectMocks
 	private Vigilante vigilante;
@@ -167,4 +173,21 @@ public class VigilanteTest {
 		// assert
 		assertTrue(resultado);
 	}
+	
+	@Test
+	public void calculartiempoParqueoTest() {
+//		// arrange
+//		 try {
+//			Date fechaInicial=dateFormat.parse("2018-04-22 1:00:00");
+//			Date fechaFinal=dateFormat.parse("2018-04-23 4:0:0");
+//		} catch (ParseException e) {
+//			e.printStackTrace();
+//		}
+//	     
+//		// act
+//		boolean resultado=vigilante.calculartiempoParqueo(fechaInicial, fechaFinal);
+//		// assert
+//		assertTrue(resultado);
+	}
+	
 }

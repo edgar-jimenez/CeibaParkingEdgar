@@ -38,6 +38,5 @@ public class IngresoRepositorio {
 		}else return null;
 	}
 	
-	
 
 }

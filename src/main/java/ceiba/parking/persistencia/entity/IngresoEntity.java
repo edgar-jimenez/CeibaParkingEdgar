@@ -21,7 +21,7 @@ public class IngresoEntity {
 	private Date fecha;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="ID_VEHICULO",referencedColumnName="id_vehiculo")
+	@JoinColumn(name="id_vehiculo",referencedColumnName="idvehiculo")
 	private VehiculoEntity vehiculo;
 
 	

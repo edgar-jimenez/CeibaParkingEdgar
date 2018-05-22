@@ -3,7 +3,10 @@ package ceiba.parking.unitaria;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -67,6 +70,28 @@ public class CalendarioTest {
 		cal.set(ANNO,MES,DIA_MARTES);
 		// act
 		boolean resultado = (cal.getTime().equals(calendario.getFecha()));
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularTiempoTest() {		
+		// arrange
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+		 
+        Date fechaInicial=null;
+        Date fechaFinal=null;
+		try {
+			fechaInicial = dateFormat.parse("2018-04-22 1:00:00");
+			fechaFinal = dateFormat.parse("2018-04-23 4:10:10");
+			System.out.println("dia: "+fechaInicial+"horas: "+fechaFinal);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		calendario.calcularTiempo(fechaInicial, fechaFinal);
+		// act
+		boolean resultado = (calendario.getDiaDeParqueo()==1);
 		// assert
 		assertTrue(resultado);
 	}

@@ -10,10 +10,41 @@ import org.springframework.stereotype.Service;
 public class Calendario {
 	
 	private Calendar fecha =Calendar.getInstance();
+	
+	private int diaDeParqueo;
+
+	private int horaDeParqueo;
+
+	private int minutosDeParqueo;
 
 	public boolean validarFecha() {
 		return (Calendar.SUNDAY==fecha.get(Calendar.DAY_OF_WEEK) 
 				|| Calendar.MONDAY==fecha.get(Calendar.DAY_OF_WEEK));
+	}
+	
+	public void calcularTiempo(Date entrada,Date salida) {
+        
+        int diferencia=(int) ((salida.getTime()-entrada.getTime())/1000);
+        
+        int dias=0;
+        int horas=0;
+        int minutos=0;
+        if(diferencia>86400) {
+            dias=(int)Math.floor(diferencia/86400);
+            diferencia=diferencia-(dias*86400);
+        }
+        if(diferencia>3600) {
+            horas=(int)Math.floor(diferencia/3600);
+            diferencia=diferencia-(horas*3600);
+        }
+        if(diferencia>60) {
+            minutos=(int)Math.floor(diferencia/60);
+            diferencia=diferencia-(minutos*60);
+        }
+        this.diaDeParqueo=dias;
+        this.horaDeParqueo=horas;
+        this.minutosDeParqueo=minutos;
+		System.out.println("Hay "+dias+" dias, "+horas+" horas, "+minutos+" minutos y "+diferencia+" segundos de diferencia");
 	}
 	
 	public void setFecha(int anno,int mes,int dia) {
@@ -22,6 +53,23 @@ public class Calendario {
 
 	public Date getFecha() {
 		return fecha.getTime();
+	}
+	
+	public Date getFechanueva() {
+		fecha =Calendar.getInstance();
+		return fecha.getTime();
+	}
+
+	public int getDiaDeParqueo() {
+		return diaDeParqueo;
+	}
+
+	public int getHoraDeParqueo() {
+		return horaDeParqueo;
+	}
+
+	public int getMinutosDeParqueo() {
+		return minutosDeParqueo;
 	}
 
 }
