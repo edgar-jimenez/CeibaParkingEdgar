@@ -23,6 +23,8 @@ public class CalendarioTest {
 	private static final int DIA_DOMINGO = 20;
 	private static final int DIA_LUNES = 21;
 	private static final int DIA_MARTES = 23;
+
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd h:m:s a");
 	
 	@InjectMocks
 	private Calendario calendario;
@@ -75,23 +77,64 @@ public class CalendarioTest {
 	}
 	
 	@Test
-	public void calcularTiempoTest() {		
-		// arrange
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
-		 
+	public void calcularTiempoTest1() {		
+		// arrange		 
         Date fechaInicial=null;
         Date fechaFinal=null;
 		try {
-			fechaInicial = dateFormat.parse("2018-04-22 1:00:00");
-			fechaFinal = dateFormat.parse("2018-04-23 4:10:10");
-			System.out.println("dia: "+fechaInicial+"horas: "+fechaFinal);
+			fechaInicial = dateFormat.parse("2018-04-22 1:00:00 AM");
+			fechaFinal = dateFormat.parse("2018-04-23 7:50:00 AM");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
 		calendario.calcularTiempo(fechaInicial, fechaFinal);
 		// act
-		boolean resultado = (calendario.getDiaDeParqueo()==1);
+		boolean resultado = (calendario.getDiaDeParqueo() == 1 && 
+				calendario.getHoraDeParqueo() == 6 &&
+				calendario.getMinutosDeParqueo() == 50);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularTiempoTest2() {		
+		// arrange		 
+        Date fechaInicial=null;
+        Date fechaFinal=null;
+		try {
+			fechaInicial = dateFormat.parse("2018-04-22 12:00:00 PM");
+			fechaFinal = dateFormat.parse("2018-04-25 7:50:00 PM");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		calendario.calcularTiempo(fechaInicial, fechaFinal);
+		// act
+		boolean resultado = (calendario.getDiaDeParqueo() == 3 && 
+				calendario.getHoraDeParqueo() == 7 &&
+				calendario.getMinutosDeParqueo() == 50);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularTiempoTest3() {		
+		// arrange		 
+        Date fechaInicial=null;
+        Date fechaFinal=null;
+		try {
+			fechaInicial = dateFormat.parse("2018-04-22 8:00:00 AM");
+			fechaFinal = dateFormat.parse("2018-04-22 7:15:00 PM");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		calendario.calcularTiempo(fechaInicial, fechaFinal);
+		// act
+		boolean resultado = (calendario.getDiaDeParqueo() == 0 && 
+				calendario.getHoraDeParqueo() == 11 &&
+				calendario.getMinutosDeParqueo() == 15);
 		// assert
 		assertTrue(resultado);
 	}

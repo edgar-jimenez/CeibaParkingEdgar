@@ -43,9 +43,4 @@ public class VigilanteController {
 		return new ResponseEntity<>(vigilante.listaFacturas(), HttpStatus.OK);
 	}
 	
-//	@RequestMapping(value="/Vigilante/fecha", method=RequestMethod.GET)
-//	public ResponseEntity<String> fechcalculo(){
-//		return new ResponseEntity<>(vigilante.calcularTiempo(), HttpStatus.OK);
-//	}
-	
 }

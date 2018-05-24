@@ -1,8 +1,6 @@
 package ceiba.parking.dominio;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +55,17 @@ public class Vigilante {
 			
 			diaActual.calcularTiempo(ingreso.getFecha(), diaActual.getFechanueva());
 			
+			double valor=calcularCobro(
+					diaActual.getDiaDeParqueo(),
+					diaActual.getHoraDeParqueo(),
+					ingreso.getVehiculo());
 			factura = new Factura(
 					formatoFecha.format(ingreso.getFecha()),
 					formatoFecha.format(diaActual.getFechanueva()),
 					"Dias: "+diaActual.getDiaDeParqueo()+
 					" Horas: "+diaActual.getHoraDeParqueo()+
 					" minutos: "+diaActual.getMinutosDeParqueo(),
-					"150",
+					"$ "+valor,
 					ingreso.getVehiculo().getPlaca(),
 					ingreso.getVehiculo().getTipo()); 
 			
@@ -71,25 +73,45 @@ public class Vigilante {
 			ingresoRepositorio.eliminarIngreso(ingreso.getId());			
 		}else throw new IngresoException(VEHICULO_NO_REGISTRADO);
 	}
-	
- 
-	
-	
-	public int diasDeParqueo(Date ingreso,Date salida) {
-		
-		return 2;
-	}
-	
-	public int horasDeParqueo(Date ingreso,Date salida) {
-		
-		return 2;
-	}
 
-	public int minutosDeParqueo(Date ingreso,Date salida) {
-	
-	return 2;
+	public double calcularCobro(int dias,int horas,Vehiculo vehiculo) {
+		double valor=0;
+		if (vehiculo.getTipo().equals("Moto")) {
+			valor=cobroMoto(dias,horas,vehiculo.getCilindraje());
+		}
+		if (vehiculo.getTipo().equals("Carro")) {
+			valor=cobroCarro(dias, horas);
+		}
+		return valor;
 	}
-
+	
+	public double cobroMoto(int dias,int horas,int cilindraje) {
+		double valorDias=0;
+		double valorHoras=0;
+		
+		valorDias=dias*4000;
+		
+		if (horas<9) {
+			valorHoras=500*horas;
+		}else valorHoras=4000;
+		
+		if(cilindraje>500) {
+			return valorDias+valorHoras+2000;
+		}else return valorDias+valorHoras;
+	}
+	
+	public double cobroCarro(int dias,int horas) {
+		double valorDias=0;
+		double valorHoras=0;
+		
+		valorDias=dias*8000;
+		
+		if (horas<9) {
+			valorHoras=1000*horas;
+		}else valorHoras=8000;
+		
+		return valorDias+valorHoras;
+	}
 	
 	public boolean validarVehiculo(String placa) {
 		return (vehiculoRepositorio.consultarPorPlaca(placa)!=null);

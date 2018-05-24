@@ -9,6 +9,9 @@ public class Ingreso {
 	private Date fecha;
 	
 	private Vehiculo vehiculo;
+	
+	public Ingreso() {
+	}
 
 	public Ingreso(Date fecha, Vehiculo vehiculo) {
 		this.fecha = fecha;

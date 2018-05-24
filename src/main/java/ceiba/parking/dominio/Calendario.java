@@ -25,7 +25,6 @@ public class Calendario {
 	public void calcularTiempo(Date entrada,Date salida) {
         
         int diferencia=(int) ((salida.getTime()-entrada.getTime())/1000);
-        
         int dias=0;
         int horas=0;
         int minutos=0;
@@ -44,7 +43,6 @@ public class Calendario {
         this.diaDeParqueo=dias;
         this.horaDeParqueo=horas;
         this.minutosDeParqueo=minutos;
-		System.out.println("Hay "+dias+" dias, "+horas+" horas, "+minutos+" minutos y "+diferencia+" segundos de diferencia");
 	}
 	
 	public void setFecha(int anno,int mes,int dia) {

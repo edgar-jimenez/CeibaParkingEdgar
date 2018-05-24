@@ -1,11 +1,10 @@
 package ceiba.parking.unitaria;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +16,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ceiba.parking.dominio.Calendario;
+import ceiba.parking.dominio.Ingreso;
 import ceiba.parking.dominio.Vehiculo;
 import ceiba.parking.dominio.Vigilante;
+import ceiba.parking.persistencia.repository.IngresoRepositorio;
 import ceiba.parking.persistencia.repository.VehiculoRepositorio;
+import ceiba.parking.testdatabuilder.IngresoTestDataBuilder;
+import ceiba.parking.testdatabuilder.VehiculoTestDataBuilder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -49,7 +52,11 @@ public class VigilanteTest {
 	private VehiculoRepositorio vehiculoRepositorio;
 	
 	@Mock
+	private IngresoRepositorio ingresoRepositorio;
+	
+	@Mock
 	private Vehiculo vehiculoMock;
+	
 	
 	@Test
 	public void esPlacaIniciaConATest() {
@@ -59,6 +66,22 @@ public class VigilanteTest {
 	@Test
 	public void noEsPlacaIniciaConATest() {
 		assertFalse(vigilante.esPlacaIniciaConA(PLACA_SIN_A));
+	}
+	
+	@Test
+	public void ingresoDeVehiculoTest() {
+		// arrange
+		Vehiculo vehiculo= new VehiculoTestDataBuilder().conTipo(TIPO_CARRO).conPlaca(PLACA_CON_A).build();
+		Ingreso ingreso = new IngresoTestDataBuilder(vehiculo).build();
+		Mockito.when(vehiculoRepositorio.contarPorTipo(TIPO_CARRO)).thenReturn(5);
+		Mockito.when(diaActual.validarFecha()).thenReturn(true);
+		Mockito.when(ingresoRepositorio.registrarIngreso(ingreso)).thenReturn(ingreso);
+		// act
+		System.out.println("******************");
+		Ingreso resultado=vigilante.ingresoDeVehiculo(vehiculo);
+		System.out.println("ingreso: "+resultado);
+		//assert
+		assertNotNull(resultado);
 	}
 	
 	@Test
@@ -175,19 +198,116 @@ public class VigilanteTest {
 	}
 	
 	@Test
-	public void calculartiempoParqueoTest() {
-//		// arrange
-//		 try {
-//			Date fechaInicial=dateFormat.parse("2018-04-22 1:00:00");
-//			Date fechaFinal=dateFormat.parse("2018-04-23 4:0:0");
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-//	     
-//		// act
-//		boolean resultado=vigilante.calculartiempoParqueo(fechaInicial, fechaFinal);
-//		// assert
-//		assertTrue(resultado);
+	public void cobroMotoCilindrajeMayorTest1() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(0, 10, CILINDRAJE_MAYOR) == 6000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMayorTest2() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(0, 8, CILINDRAJE_MAYOR) == 6000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMayorTest3() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(1, 3, CILINDRAJE_MAYOR) == 7500);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMenorTest1() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(0, 10, CILINDRAJE_MENOR) == 4000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMenorTest2() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(0, 8, CILINDRAJE_MENOR) == 4000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMenorTest3() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(1, 3, CILINDRAJE_MENOR) == 5500);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroCarroTest1() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroCarro(0, 10) == 8000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroCarroTest2() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroCarro(0, 8) == 8000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroCarroTest3() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroCarro(1, 3) == 11000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroCarroTest() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Carro");
+		// act
+		boolean resultado=(vigilante.calcularCobro(1, 3, vehiculoMock) == 11000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMenorTest() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
+		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MENOR);
+		// act
+		boolean resultado=(vigilante.calcularCobro(1, 3, vehiculoMock) == 5500);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMayorTest() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
+		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MAYOR);
+		// act
+		boolean resultado=(vigilante.calcularCobro(1, 3, vehiculoMock) == 7500);
+		// assert
+		assertTrue(resultado);
 	}
 	
 }

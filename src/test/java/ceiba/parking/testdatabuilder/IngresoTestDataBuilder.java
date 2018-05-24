@@ -11,7 +11,7 @@ public class IngresoTestDataBuilder {
 	private Vehiculo vehiculo;
 	
 	public IngresoTestDataBuilder(Vehiculo vehiculo) {
-		this.fecha = new Date();;
+		this.fecha = new Date();
 		this.vehiculo = vehiculo;
 	}
 	
