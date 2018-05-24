@@ -17,7 +17,6 @@ import ceiba.parking.dominio.Calendario;
 
 public class CalendarioTest {
 	
-	
 	private static final int ANNO = 2018;
 	private static final int MES = 4;
 	private static final int DIA_DOMINGO = 20;

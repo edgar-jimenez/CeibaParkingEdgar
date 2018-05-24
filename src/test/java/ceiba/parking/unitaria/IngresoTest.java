@@ -14,6 +14,7 @@ import ceiba.parking.dominio.Vehiculo;
 import ceiba.parking.testdatabuilder.IngresoTestDataBuilder;
 import ceiba.parking.testdatabuilder.VehiculoTestDataBuilder;
 
+
 public class IngresoTest {
 	
 	@Mock
