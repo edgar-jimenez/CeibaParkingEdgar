@@ -2,7 +2,6 @@ package ceiba.parking.unitaria;
 
 import static org.junit.Assert.assertTrue;
 
-import javax.validation.constraints.AssertTrue;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,20 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ceiba.parking.ParkingApplication;
 import ceiba.parking.persistencia.entity.VehiculoEntity;
 import ceiba.parking.persistencia.repository.jpa.VehiculoRepositorioJPA;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes=ParkingApplication.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ParkingApplication.class)
 @DataJpaTest
 public class VehiculoRepositorioTest {
 	
-	private static final String PLACA = "DAS223";
-	private static final String TIPO = "carro";
+	private static final String PLACA1 = "DAS223";
+	private static final String PLACA2 = "DAx223";
+	private static final String TIPO_CARRO = "Carro";
+	private static final String TIPO_MOTO = "Moto";
 	private static final int CILINDRAJE = 180;
 
 	@Autowired
@@ -33,15 +33,32 @@ public class VehiculoRepositorioTest {
 	private VehiculoRepositorioJPA vehiculoRepositorioJPA;
 	
 	@Test
-	private void findByplaca() {
+	public void findByplacaTest() {
 		// arrange
-		VehiculoEntity vehiculoEntity = new VehiculoEntity(PLACA, TIPO, CILINDRAJE);
+		VehiculoEntity vehiculoEntity = new VehiculoEntity(PLACA1, TIPO_CARRO, CILINDRAJE);
 		entityManager.persist(vehiculoEntity);
 		entityManager.flush();
 		
 		// act
-		VehiculoEntity vehiculoEntity1 = vehiculoRepositorioJPA.findByplaca(PLACA);
+		VehiculoEntity vehiculoEntity1 = vehiculoRepositorioJPA.findByplaca(PLACA1);
 		boolean comparacion=(vehiculoEntity.equals(vehiculoEntity1));
+		// assert
+		assertTrue(comparacion);
+	}
+	
+	@Test
+	public void countBytipoTest() {
+		// arrange
+		VehiculoEntity vehiculoEntity1 = new VehiculoEntity(PLACA1, TIPO_CARRO, CILINDRAJE);
+		VehiculoEntity vehiculoEntity2 = new VehiculoEntity(PLACA2, TIPO_CARRO, CILINDRAJE);
+		entityManager.persist(vehiculoEntity1);
+
+		entityManager.persist(vehiculoEntity2);
+		entityManager.flush();
+		
+		// act
+		int numeroDeVehiculos = vehiculoRepositorioJPA.countBytipo(TIPO_CARRO);
+		boolean comparacion=(numeroDeVehiculos==2);
 		// assert
 		assertTrue(comparacion);
 	}

@@ -11,7 +11,7 @@ import ceiba.parking.testdatabuilder.VehiculoTestDataBuilder;
 public class VehiculoTest {
 	
 	private static final String PLACA = "DAS223";
-	private static final String TIPO = "carro";
+	private static final String TIPO = "Carro";
 	private static final int CILINDRAJE = 180;
 	
 	@Test

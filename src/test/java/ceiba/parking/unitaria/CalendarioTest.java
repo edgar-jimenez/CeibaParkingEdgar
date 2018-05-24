@@ -1,5 +1,6 @@
 package ceiba.parking.unitaria;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -63,6 +64,7 @@ public class CalendarioTest {
 		assertFalse(resultado);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void getFechaTest() {		
 		// arrange
@@ -70,9 +72,8 @@ public class CalendarioTest {
 		Calendar cal=Calendar.getInstance();
 		cal.set(ANNO,MES,DIA_MARTES);
 		// act
-		boolean resultado = (cal.getTime().equals(calendario.getFecha()));
 		// assert
-		assertTrue(resultado);
+		assertEquals(cal.getTime().getMinutes(),calendario.getFecha().getMinutes());
 	}
 	
 	@Test

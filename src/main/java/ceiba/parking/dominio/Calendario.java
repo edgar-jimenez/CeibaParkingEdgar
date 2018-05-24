@@ -25,9 +25,11 @@ public class Calendario {
 	public void calcularTiempo(Date entrada,Date salida) {
         
         int diferencia=(int) ((salida.getTime()-entrada.getTime())/1000);
+        
         int dias=0;
         int horas=0;
         int minutos=0;
+        
         if(diferencia>86400) {
             dias=(int)Math.floor((double)diferencia/86400);
             diferencia=diferencia-(dias*86400);
