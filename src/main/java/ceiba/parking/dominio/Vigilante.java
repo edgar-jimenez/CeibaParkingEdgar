@@ -89,10 +89,10 @@ public class Vigilante {
 		double valorDias=0;
 		double valorHoras=0;
 		
-		valorDias=dias*4000;
+		valorDias=(double)dias*4000;
 		
 		if (horas<9) {
-			valorHoras=500*horas;
+			valorHoras=(double)500*horas;
 		}else valorHoras=4000;
 		
 		if(cilindraje>500) {
@@ -104,10 +104,10 @@ public class Vigilante {
 		double valorDias=0;
 		double valorHoras=0;
 		
-		valorDias=dias*8000;
+		valorDias=(double)dias*8000;
 		
 		if (horas<9) {
-			valorHoras=1000*horas;
+			valorHoras=(double)1000*horas;
 		}else valorHoras=8000;
 		
 		return valorDias+valorHoras;

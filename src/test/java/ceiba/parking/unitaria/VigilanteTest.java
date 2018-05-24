@@ -1,7 +1,6 @@
 package ceiba.parking.unitaria;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.text.SimpleDateFormat;
@@ -16,13 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import ceiba.parking.dominio.Calendario;
-import ceiba.parking.dominio.Ingreso;
 import ceiba.parking.dominio.Vehiculo;
 import ceiba.parking.dominio.Vigilante;
 import ceiba.parking.persistencia.repository.IngresoRepositorio;
 import ceiba.parking.persistencia.repository.VehiculoRepositorio;
-import ceiba.parking.testdatabuilder.IngresoTestDataBuilder;
-import ceiba.parking.testdatabuilder.VehiculoTestDataBuilder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -66,22 +62,6 @@ public class VigilanteTest {
 	@Test
 	public void noEsPlacaIniciaConATest() {
 		assertFalse(vigilante.esPlacaIniciaConA(PLACA_SIN_A));
-	}
-	
-	@Test
-	public void ingresoDeVehiculoTest() {
-		// arrange
-		Vehiculo vehiculo= new VehiculoTestDataBuilder().conTipo(TIPO_CARRO).conPlaca(PLACA_CON_A).build();
-		Ingreso ingreso = new IngresoTestDataBuilder(vehiculo).build();
-		Mockito.when(vehiculoRepositorio.contarPorTipo(TIPO_CARRO)).thenReturn(5);
-		Mockito.when(diaActual.validarFecha()).thenReturn(true);
-		Mockito.when(ingresoRepositorio.registrarIngreso(ingreso)).thenReturn(ingreso);
-		// act
-		System.out.println("******************");
-		Ingreso resultado=vigilante.ingresoDeVehiculo(vehiculo);
-		System.out.println("ingreso: "+resultado);
-		//assert
-		assertNotNull(resultado);
 	}
 	
 	@Test
