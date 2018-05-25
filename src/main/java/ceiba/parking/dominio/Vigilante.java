@@ -17,8 +17,15 @@ public class Vigilante {
 	public static final String VEHICULO_NO_AUROTIZADO = "placa inicia con A dia no autorizado";
 	public static final String CUPO_NO_DISPONIBLE = "Cupos no disponibles";
 	public static final String VEHICULO_NO_REGISTRADO = "Vehiculo no se ecuentra en el parqueadero";
+	public static final String VEHICULO_MOTO = "Moto";
+	public static final String VEHICULO_CARRO = "Carro";
 	public static final int CARROS_TOPE=20;
 	public static final int MOTOS_TOPE=10;
+	public static final int COSTO_HORA_MOTO=500;
+	public static final int COSTO_DIA_MOTO=4000;
+	public static final int COSTO_HORA_CARRO=1000;
+	public static final int COSTO_DIA_CARRO=8000;
+	public static final int COSTO_ADD_POR_CILINDRAJE=2000;
 	
 	private Calendario diaActual;	
 	private VehiculoRepositorio vehiculoRepositorio;	
@@ -77,52 +84,39 @@ public class Vigilante {
 	}
 
 	public double calcularCobro(int dias,int horas,int minutos,Vehiculo vehiculo) {
-		double valor=0;
-		if (vehiculo.getTipo().equals("Moto")) {
-			valor=cobroMoto(dias,horas,minutos,vehiculo.getCilindraje());
-		}
-		if (vehiculo.getTipo().equals("Carro")) {
-			valor=cobroCarro(dias, horas,minutos);
-		}
-		return valor;
-	}
-	
-	public double cobroMoto(int dias,int horas,int minutos,int cilindraje) {
-		double valorDias=0;
-		double valorHoras=0;
-		double valorMinutos=0;
+		int valorDias=0;
+		int valorHoras=0;
+		int valorMinutos=0;
 		
-		valorDias=(double)dias*4000;
+		int costoDia=0;
+		int costoHora=0;
+		int costPorCilindraje=0;
+	
+		if (vehiculo.getTipo().equals(VEHICULO_MOTO)) {
+			costoDia=COSTO_DIA_MOTO;
+			costoHora=COSTO_HORA_MOTO;
+			costPorCilindraje=COSTO_ADD_POR_CILINDRAJE;
+			
+		}
+		
+		if (vehiculo.getTipo().equals(VEHICULO_CARRO)) {
+			costoDia=COSTO_DIA_CARRO;
+			costoHora=COSTO_HORA_CARRO;
+		}
+		
+		valorDias=dias*costoDia;
 		
 		if (minutos>10) {
-			valorMinutos=500;
+			valorMinutos=costoHora;
 		}
 		
 		if (horas<9) {
-			valorHoras=(double)500*horas;
-		}else valorHoras=4000;
+			valorHoras=costoHora*horas;
+		}else valorHoras=costoDia;
 		
-		if(cilindraje>500) {
-			return valorDias+valorHoras+valorMinutos+2000;
+		if(vehiculo.getCilindraje()>500) {
+			return valorDias+valorHoras+valorMinutos+costPorCilindraje;
 		}else return valorDias+valorHoras+valorMinutos;
-	}
-	
-	public double cobroCarro(int dias,int horas,int minutos) {
-		double valorDias=0;
-		double valorHoras=0;
-		double valorMinutos=0;
-		
-		valorDias=(double)dias*8000;
-		
-		if (minutos>10) {
-			valorMinutos=1000;
-		}
-		
-		if (horas<9) {
-			valorHoras=(double)1000*horas;
-		}else valorHoras=8000;
-		
-		return valorDias+valorHoras+valorMinutos;
 	}
 	
 	public boolean validarVehiculo(String placa) {

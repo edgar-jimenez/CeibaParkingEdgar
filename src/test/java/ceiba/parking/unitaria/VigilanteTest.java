@@ -178,115 +178,7 @@ public class VigilanteTest {
 	}
 	
 	@Test
-	public void cobroMotoCilindrajeMayorTest1() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(0, 10,0, CILINDRAJE_MAYOR) == 6000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMayorTest2() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(0, 8,0, CILINDRAJE_MAYOR) == 6000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMayorTest3() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(1, 3,0, CILINDRAJE_MAYOR) == 7500);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMayorTest4() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(1, 3,15, CILINDRAJE_MAYOR) == 8000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMenorTest1() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(0, 10,0, CILINDRAJE_MENOR) == 4000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMenorTest2() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(0, 8,0, CILINDRAJE_MENOR) == 4000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMenorTest3() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(1, 3,0, CILINDRAJE_MENOR) == 5500);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroMotoCilindrajeMenorTest4() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroMoto(1, 3,20, CILINDRAJE_MENOR) == 6000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroCarroTest1() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroCarro(0, 10,0) == 8000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroCarroTest2() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroCarro(0, 8,0) == 8000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroCarroTest3() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroCarro(1, 3,0) == 11000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void cobroCarroTest4() {
-		// arrange
-		// act
-		boolean resultado=(vigilante.cobroCarro(1, 3,20) == 12000);
-		// assert
-		assertTrue(resultado);
-	}
-	
-	@Test
-	public void calcularCobroCarroTest() {
+	public void calcularCobroCarroTest1() {
 		// arrange
 		Mockito.when(vehiculoMock.getTipo()).thenReturn("Carro");
 		// act
@@ -296,7 +188,27 @@ public class VigilanteTest {
 	}
 	
 	@Test
-	public void calcularCobroMotoCilindrajeMenorTest() {
+	public void calcularCobroCarroTest2() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Carro");
+		// act
+		boolean resultado=(vigilante.calcularCobro(0, 3,15, vehiculoMock) == 4000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroCarroTest3() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Carro");
+		// act
+		boolean resultado=(vigilante.calcularCobro(0, 10,0, vehiculoMock) == 8000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMenorTest1() {
 		// arrange
 		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
 		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MENOR);
@@ -307,12 +219,56 @@ public class VigilanteTest {
 	}
 	
 	@Test
-	public void calcularCobroMotoCilindrajeMayorTest() {
+	public void calcularCobroMotoCilindrajeMenorTest2() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
+		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MENOR);
+		// act
+		boolean resultado=(vigilante.calcularCobro(0, 3,15, vehiculoMock) == 2000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMenorTest3() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
+		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MENOR);
+		// act
+		boolean resultado=(vigilante.calcularCobro(0, 10,0, vehiculoMock) == 4000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMayorTest1() {
 		// arrange
 		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
 		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MAYOR);
 		// act
 		boolean resultado=(vigilante.calcularCobro(1, 3,0, vehiculoMock) == 7500);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMayorTest2() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
+		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MAYOR);
+		// act
+		boolean resultado=(vigilante.calcularCobro(0, 3,25, vehiculoMock) == 4000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void calcularCobroMotoCilindrajeMayorTest3() {
+		// arrange
+		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
+		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MAYOR);
+		// act
+		boolean resultado=(vigilante.calcularCobro(0, 10,5, vehiculoMock) == 6000);
 		// assert
 		assertTrue(resultado);
 	}
