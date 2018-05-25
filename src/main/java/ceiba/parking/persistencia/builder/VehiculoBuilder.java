@@ -5,6 +5,10 @@ import ceiba.parking.persistencia.entity.VehiculoEntity;
 
 public class VehiculoBuilder {
 	
+	private VehiculoBuilder() {
+		
+	}
+	
 	public static Vehiculo convertirADominio(VehiculoEntity vehiculoEntity) {
 		Vehiculo vehiculo = null;
 		if(vehiculoEntity != null) {

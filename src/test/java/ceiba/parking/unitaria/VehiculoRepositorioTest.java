@@ -1,5 +1,6 @@
 package ceiba.parking.unitaria;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -47,7 +48,7 @@ public class VehiculoRepositorioTest {
 	}
 	
 	@Test
-	public void countBytipoTest() {
+	public void countBytipoCarroTest() {
 		// arrange
 		VehiculoEntity vehiculoEntity1 = new VehiculoEntity(PLACA1, TIPO_CARRO, CILINDRAJE);
 		VehiculoEntity vehiculoEntity2 = new VehiculoEntity(PLACA2, TIPO_CARRO, CILINDRAJE);
@@ -58,8 +59,23 @@ public class VehiculoRepositorioTest {
 		
 		// act
 		int numeroDeVehiculos = vehiculoRepositorioJPA.countBytipo(TIPO_CARRO);
-		boolean comparacion=(numeroDeVehiculos==2);
 		// assert
-		assertTrue(comparacion);
+		assertEquals(2, numeroDeVehiculos);
+	}
+	
+	@Test
+	public void countBytipoMotoTest() {
+		// arrange
+		VehiculoEntity vehiculoEntity1 = new VehiculoEntity(PLACA1, TIPO_MOTO, CILINDRAJE);
+		VehiculoEntity vehiculoEntity2 = new VehiculoEntity(PLACA2, TIPO_CARRO, CILINDRAJE);
+		entityManager.persist(vehiculoEntity1);
+
+		entityManager.persist(vehiculoEntity2);
+		entityManager.flush();
+		
+		// act
+		int numeroDeVehiculos = vehiculoRepositorioJPA.countBytipo(TIPO_CARRO);
+		// assert
+		assertEquals(1,numeroDeVehiculos);
 	}
 }

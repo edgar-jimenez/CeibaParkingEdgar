@@ -6,7 +6,6 @@ import ceiba.parking.dominio.Ingreso;
 import ceiba.parking.dominio.Vehiculo;
 
 public class IngresoTestDataBuilder {
-	
 	private Date fecha;
 	private Vehiculo vehiculo;
 	

@@ -17,11 +17,6 @@ public class VehiculoRepositorio {
 			return VehiculoBuilder.convertirADominio(vehiculoRepositorioJPA.findByplaca(placa));
 	}
 	
-	public void eliminarVehiculo(Vehiculo vehiculo) {
-		vehiculoRepositorioJPA.delete(VehiculoBuilder.convertirAEntity(vehiculo));
-	}
-	
-	
 	public int contarPorTipo(String tipo) {
 		return vehiculoRepositorioJPA.countBytipo(tipo);
 	}

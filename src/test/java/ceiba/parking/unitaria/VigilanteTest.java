@@ -181,7 +181,7 @@ public class VigilanteTest {
 	public void cobroMotoCilindrajeMayorTest1() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroMoto(0, 10, CILINDRAJE_MAYOR) == 6000);
+		boolean resultado=(vigilante.cobroMoto(0, 10,0, CILINDRAJE_MAYOR) == 6000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -190,7 +190,7 @@ public class VigilanteTest {
 	public void cobroMotoCilindrajeMayorTest2() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroMoto(0, 8, CILINDRAJE_MAYOR) == 6000);
+		boolean resultado=(vigilante.cobroMoto(0, 8,0, CILINDRAJE_MAYOR) == 6000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -199,7 +199,16 @@ public class VigilanteTest {
 	public void cobroMotoCilindrajeMayorTest3() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroMoto(1, 3, CILINDRAJE_MAYOR) == 7500);
+		boolean resultado=(vigilante.cobroMoto(1, 3,0, CILINDRAJE_MAYOR) == 7500);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMayorTest4() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(1, 3,15, CILINDRAJE_MAYOR) == 8000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -208,7 +217,7 @@ public class VigilanteTest {
 	public void cobroMotoCilindrajeMenorTest1() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroMoto(0, 10, CILINDRAJE_MENOR) == 4000);
+		boolean resultado=(vigilante.cobroMoto(0, 10,0, CILINDRAJE_MENOR) == 4000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -217,7 +226,7 @@ public class VigilanteTest {
 	public void cobroMotoCilindrajeMenorTest2() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroMoto(0, 8, CILINDRAJE_MENOR) == 4000);
+		boolean resultado=(vigilante.cobroMoto(0, 8,0, CILINDRAJE_MENOR) == 4000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -226,7 +235,16 @@ public class VigilanteTest {
 	public void cobroMotoCilindrajeMenorTest3() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroMoto(1, 3, CILINDRAJE_MENOR) == 5500);
+		boolean resultado=(vigilante.cobroMoto(1, 3,0, CILINDRAJE_MENOR) == 5500);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroMotoCilindrajeMenorTest4() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroMoto(1, 3,20, CILINDRAJE_MENOR) == 6000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -235,7 +253,7 @@ public class VigilanteTest {
 	public void cobroCarroTest1() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroCarro(0, 10) == 8000);
+		boolean resultado=(vigilante.cobroCarro(0, 10,0) == 8000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -244,7 +262,7 @@ public class VigilanteTest {
 	public void cobroCarroTest2() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroCarro(0, 8) == 8000);
+		boolean resultado=(vigilante.cobroCarro(0, 8,0) == 8000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -253,7 +271,16 @@ public class VigilanteTest {
 	public void cobroCarroTest3() {
 		// arrange
 		// act
-		boolean resultado=(vigilante.cobroCarro(1, 3) == 11000);
+		boolean resultado=(vigilante.cobroCarro(1, 3,0) == 11000);
+		// assert
+		assertTrue(resultado);
+	}
+	
+	@Test
+	public void cobroCarroTest4() {
+		// arrange
+		// act
+		boolean resultado=(vigilante.cobroCarro(1, 3,20) == 12000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -263,7 +290,7 @@ public class VigilanteTest {
 		// arrange
 		Mockito.when(vehiculoMock.getTipo()).thenReturn("Carro");
 		// act
-		boolean resultado=(vigilante.calcularCobro(1, 3, vehiculoMock) == 11000);
+		boolean resultado=(vigilante.calcularCobro(1, 3,0, vehiculoMock) == 11000);
 		// assert
 		assertTrue(resultado);
 	}
@@ -274,7 +301,7 @@ public class VigilanteTest {
 		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
 		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MENOR);
 		// act
-		boolean resultado=(vigilante.calcularCobro(1, 3, vehiculoMock) == 5500);
+		boolean resultado=(vigilante.calcularCobro(1, 3,0, vehiculoMock) == 5500);
 		// assert
 		assertTrue(resultado);
 	}
@@ -285,7 +312,7 @@ public class VigilanteTest {
 		Mockito.when(vehiculoMock.getTipo()).thenReturn("Moto");
 		Mockito.when(vehiculoMock.getCilindraje()).thenReturn(CILINDRAJE_MAYOR);
 		// act
-		boolean resultado=(vigilante.calcularCobro(1, 3, vehiculoMock) == 7500);
+		boolean resultado=(vigilante.calcularCobro(1, 3,0, vehiculoMock) == 7500);
 		// assert
 		assertTrue(resultado);
 	}

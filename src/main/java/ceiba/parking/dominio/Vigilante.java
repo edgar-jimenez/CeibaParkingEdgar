@@ -47,7 +47,7 @@ public class Vigilante {
 		}else throw new IngresoException(CUPO_NO_DISPONIBLE);		
 	}
 	
-	public void salidaDeVehiculo(Long id) {
+	public boolean salidaDeVehiculo(Long id) {
 		Ingreso ingreso = ingresoRepositorio.buscarPorId(id);
 		Factura factura;
 		
@@ -58,6 +58,7 @@ public class Vigilante {
 			double valor=calcularCobro(
 					diaActual.getDiaDeParqueo(),
 					diaActual.getHoraDeParqueo(),
+					diaActual.getMinutosDeParqueo(),
 					ingreso.getVehiculo());
 			factura = new Factura(
 					formatoFecha.format(ingreso.getFecha()),
@@ -72,45 +73,56 @@ public class Vigilante {
 			facturaRepositorio.registrarFactura(factura);
 			ingresoRepositorio.eliminarIngreso(ingreso.getId());			
 		}else throw new IngresoException(VEHICULO_NO_REGISTRADO);
+		return true;
 	}
 
-	public double calcularCobro(int dias,int horas,Vehiculo vehiculo) {
+	public double calcularCobro(int dias,int horas,int minutos,Vehiculo vehiculo) {
 		double valor=0;
 		if (vehiculo.getTipo().equals("Moto")) {
-			valor=cobroMoto(dias,horas,vehiculo.getCilindraje());
+			valor=cobroMoto(dias,horas,minutos,vehiculo.getCilindraje());
 		}
 		if (vehiculo.getTipo().equals("Carro")) {
-			valor=cobroCarro(dias, horas);
+			valor=cobroCarro(dias, horas,minutos);
 		}
 		return valor;
 	}
 	
-	public double cobroMoto(int dias,int horas,int cilindraje) {
+	public double cobroMoto(int dias,int horas,int minutos,int cilindraje) {
 		double valorDias=0;
 		double valorHoras=0;
+		double valorMinutos=0;
 		
 		valorDias=(double)dias*4000;
+		
+		if (minutos>10) {
+			valorMinutos=500;
+		}
 		
 		if (horas<9) {
 			valorHoras=(double)500*horas;
 		}else valorHoras=4000;
 		
 		if(cilindraje>500) {
-			return valorDias+valorHoras+2000;
-		}else return valorDias+valorHoras;
+			return valorDias+valorHoras+valorMinutos+2000;
+		}else return valorDias+valorHoras+valorMinutos;
 	}
 	
-	public double cobroCarro(int dias,int horas) {
+	public double cobroCarro(int dias,int horas,int minutos) {
 		double valorDias=0;
 		double valorHoras=0;
+		double valorMinutos=0;
 		
 		valorDias=(double)dias*8000;
+		
+		if (minutos>10) {
+			valorMinutos=1000;
+		}
 		
 		if (horas<9) {
 			valorHoras=(double)1000*horas;
 		}else valorHoras=8000;
 		
-		return valorDias+valorHoras;
+		return valorDias+valorHoras+valorMinutos;
 	}
 	
 	public boolean validarVehiculo(String placa) {

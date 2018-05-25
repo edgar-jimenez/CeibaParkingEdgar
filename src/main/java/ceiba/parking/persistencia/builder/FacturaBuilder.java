@@ -6,7 +6,11 @@ import java.util.List;
 import ceiba.parking.dominio.Factura;
 import ceiba.parking.persistencia.entity.FacturaEntity;
 
-public class FacturaBuilder extends VehiculoBuilder{
+public class FacturaBuilder{
+	
+	private FacturaBuilder() {
+		
+	}
 	
 	public static Factura deFacturaEntityADominio(FacturaEntity facturaEntity) {
 		Factura factura = null;

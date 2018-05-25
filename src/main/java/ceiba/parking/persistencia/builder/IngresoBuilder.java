@@ -6,7 +6,11 @@ import java.util.List;
 import ceiba.parking.dominio.Ingreso;
 import ceiba.parking.persistencia.entity.IngresoEntity;
 
-public class IngresoBuilder extends VehiculoBuilder {
+public class IngresoBuilder {
+	
+	private IngresoBuilder() {
+		
+	}
 	
 	public static Ingreso deIngresoEntityADominio(IngresoEntity ingresoEntity) {
 		Ingreso ingreso = null;
@@ -14,7 +18,7 @@ public class IngresoBuilder extends VehiculoBuilder {
 			ingreso = new Ingreso(
 					ingresoEntity.getId(),
 					ingresoEntity.getFecha(),
-					convertirADominio(ingresoEntity.getVehiculo()));
+					VehiculoBuilder.convertirADominio(ingresoEntity.getVehiculo()));
 		}
 		return ingreso;
 	}
@@ -22,7 +26,7 @@ public class IngresoBuilder extends VehiculoBuilder {
 	public static IngresoEntity deIngresoAEntity(Ingreso ingreso) {
 		return new IngresoEntity(
 				ingreso.getFecha(),
-				convertirAEntity(ingreso.getVehiculo()));
+				VehiculoBuilder.convertirAEntity(ingreso.getVehiculo()));
 	}
 	
 	public static List<Ingreso> deIngresosEntityADominio(List<IngresoEntity> listIgresos){

@@ -35,12 +35,6 @@ public class VehiculoEntity {
 		return id;
 	}
 
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-
 	public String getPlaca() {
 		return placa;
 	}

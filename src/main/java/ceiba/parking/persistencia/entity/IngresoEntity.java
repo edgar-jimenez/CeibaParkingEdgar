@@ -34,40 +34,16 @@ public class IngresoEntity {
 		this.vehiculo = vehiculo;
 	}
 
-	public IngresoEntity(Long id, Date fecha, VehiculoEntity vehiculo) {
-		this.id = id;
-		this.fecha = fecha;
-		this.vehiculo = vehiculo;
-	}
-
-
 	public Long getId() {
 		return id;
 	}
-
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 
 	public Date getFecha() {
 		return fecha;
 	}
 
 
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-
 	public VehiculoEntity getVehiculo() {
 		return vehiculo;
 	}
-
-
-	public void setVehiculo(VehiculoEntity vehiculo) {
-		this.vehiculo = vehiculo;
-	}
-	
 }
