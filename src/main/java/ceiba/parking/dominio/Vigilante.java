@@ -62,7 +62,7 @@ public class Vigilante {
 			
 			diaActual.calcularTiempo(ingreso.getFecha(), diaActual.getFechanueva());
 			
-			double valor=calcularCobro(
+			int valor=calcularCobro(
 					diaActual.getDiaDeParqueo(),
 					diaActual.getHoraDeParqueo(),
 					diaActual.getMinutosDeParqueo(),
@@ -83,7 +83,7 @@ public class Vigilante {
 		return true;
 	}
 
-	public double calcularCobro(int dias,int horas,int minutos,Vehiculo vehiculo) {
+	public int calcularCobro(int dias,int horas,int minutos,Vehiculo vehiculo) {
 		int valorDias=0;
 		int valorHoras=0;
 		int valorMinutos=0;
@@ -136,10 +136,10 @@ public class Vigilante {
 	}
 	
 	public boolean validarCupo(Vehiculo vehiculo) {
-		if (vehiculo.getTipo().equals("Carro")) {
+		if (vehiculo.getTipo().equals(VEHICULO_CARRO)) {
 			return (vehiculoRepositorio.contarPorTipo(vehiculo.getTipo()) < 20);
 		}
-		if (vehiculo.getTipo().equals("Moto")) {
+		if (vehiculo.getTipo().equals(VEHICULO_MOTO)) {
 			return (vehiculoRepositorio.contarPorTipo(vehiculo.getTipo()) < 10);
 		}else return false;
 	}
